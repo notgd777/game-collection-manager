@@ -1,75 +1,420 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Game Collection Manager</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
 </head>
-<body>
-
+<body class="dark">
 <div class="container">
 
-    <h1>🎮 Game Collection Manager</h1>
+    <button onclick="undoHistory()">
 
-    <div class="card">
+Undo Riwayat
+
+</button>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- HEADER -->
+<header>
+
+    <div>
+        <h1>Game Collection Manager</h1>
+        <p>Manage, Track and Organize Your Gaming Library</p>
+    </div>
+
+    <div class="theme-area">
+
+        <span>🌙</span>
+
+        <label class="switch">
+
+            <input type="checkbox" id="themeToggle">
+
+            <span class="slider"></span>
+
+        </label>
+
+        <span>☀️</span>
+
+    </div>
+
+</header>
+
+<!-- DASHBOARD -->
+<section class="dashboard">
+
+    <div class="stat-card">
+        <h3>Total Game</h3>
+        <h2 id="totalGame">0</h2>
+    </div>
+
+    <div class="stat-card">
+        <h3>Total Wishlist</h3>
+        <h2 id="totalWishlist">0</h2>
+    </div>
+
+    <div class="stat-card">
+        <h3>Average Rating</h3>
+        <h2 id="avgRating">0</h2>
+    </div>
+
+    <div class="stat-card">
+        <h3>Played Games</h3>
+        <h2 id="playedCount">0</h2>
+    </div>
+
+</section>
+
+<!-- PILIH KOLEKSI -->
+<section class="card">
+
+    <div class="section-title">
+        <h2>Koleksi Game</h2>
+    </div>
+
+    <div class="collection-buttons">
+
+        <button class="collection-btn active" onclick="switchCollection(0)">
+            Koleksi 1
+        </button>
+
+        <button class="collection-btn" onclick="switchCollection(1)">
+            Koleksi 2
+        </button>
+
+        <button class="collection-btn" onclick="switchCollection(2)">
+            Koleksi 3
+        </button>
+
+        <button class="collection-btn" onclick="switchCollection(3)">
+            Koleksi 4
+        </button>
+
+        <button class="collection-btn" onclick="switchCollection(4)">
+            Koleksi 5
+        </button>
+
+    </div>
+
+    <div class="collection-info">
+
+        <h3 id="collectionTitle">
+            Koleksi 1
+        </h3>
+
+       <button
+class="rename-btn"
+onclick="renameCollection()">
+
+    ▷ Ubah Nama Koleksi
+
+</button>
+
+    </div>
+
+    <div class="progress-container">
+
+        <div class="progress-bar">
+
+            <div id="collectionProgress"></div>
+
+        </div>
+
+        <span id="progressText">
+            0 / 10 Game
+        </span>
+
+    </div>
+
+</section>
+
+<!-- TAMBAH GAME -->
+<section class="card">
+
+    <div class="section-title">
         <h2>Tambah Game</h2>
-
-        <input type="text" id="nama" placeholder="Nama Game">
-        <input type="text" id="genre" placeholder="Genre">
-        <input type="number" id="rating" placeholder="Rating">
-
-        <button onclick="tambahGame()">Tambah Game</button>
     </div>
 
-    <div class="card">
-        <h2>Cari Game</h2>
+    <div class="form-grid">
 
-        <input type="text" id="cariInput" placeholder="Masukkan nama game">
+        <div>
+            <label>Nama Game</label>
 
-        <button onclick="cariGame()">Cari</button>
+            <input
+            type="text"
+            id="namaGame"
+            placeholder="Masukkan nama game">
+        </div>
 
-        <div id="hasilCari"></div>
+        <div>
+            <label>Genre</label>
+
+            <select id="genreGame">
+
+                <option value="">Pilih Genre</option>
+
+                <option>Action</option>
+                <option>Adventure</option>
+                <option>RPG</option>
+                <option>MMORPG</option>
+                <option>FPS</option>
+                <option>TPS</option>
+                <option>MOBA</option>
+                <option>Battle Royale</option>
+                <option>Open World</option>
+                <option>Sandbox</option>
+                <option>Simulation</option>
+                <option>Strategy</option>
+                <option>Puzzle</option>
+                <option>Horror</option>
+                <option>Survival</option>
+                <option>Sports</option>
+                <option>Racing</option>
+                <option>Fighting</option>
+                <option>Rhythm</option>
+                <option>Music</option>
+                <option>Visual Novel</option>
+                <option>Platformer</option>
+                <option>Casual</option>
+                <option>Card Game</option>
+                <option>Idle</option>
+                <option>Roguelike</option>
+                <option>Roguelite</option>
+                <option>Tower Defense</option>
+
+            </select>
+        </div>
+
+        <div>
+            <label>Rating</label>
+
+            <select id="ratingGame">
+
+                <option value="">Pilih Rating</option>
+
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+
+            </select>
+        </div>
+
     </div>
 
-    <div class="card">
+    <button
+id="btnTambahGame"
+class="primary-btn"
+onclick="tambahGame()">
+
+    Tambah Game
+
+</button>
+
+<div id="miniLoading"></div>
+
+</section>
+
+<!-- SEARCH FILTER -->
+<section class="card">
+
+    <div class="section-title">
+        <h2>Pencarian & Filter</h2>
+    </div>
+
+    <div class="form-grid">
+
+        <input
+        type="text"
+        id="searchGame"
+        placeholder="Cari nama game...">
+
+        <select id="searchMethod">
+
+    <option value="sequential">
+        Sequential Search
+    </option>
+
+    <option value="binary">
+        Binary Search
+    </option>
+
+    <option value="interpolation">
+        Interpolation Search
+    </option>
+
+</select>
+
+        <select id="filterGenre">
+
+            <option value="">
+                Semua Genre
+            </option>
+
+        </select>
+
+        <select id="sortGame">
+
+            <option value="rating-desc">
+                Rating Tertinggi
+            </option>
+
+            <option value="rating-asc">
+                Rating Terendah
+            </option>
+
+            <option value="name-asc">
+                Nama A-Z
+            </option>
+
+            <option value="name-desc">
+                Nama Z-A
+            </option>
+
+        </select>
+
+    </div>
+
+</section>
+
+<!-- TABEL GAME -->
+<section class="card">
+
+    <div class="section-title">
         <h2>Daftar Game</h2>
-
-        <button onclick="urutkanGame()">
-            Urutkan Rating Tertinggi
-        </button>
-
-        <div id="daftarGame"></div>
     </div>
 
-    <div class="card">
-        <h2>Mainkan Game</h2>
+    <div class="table-wrapper">
 
-        <input type="text" id="gameMain" placeholder="Nama Game">
+        <table>
 
-        <button onclick="mainkanGame()">
-            Mainkan
-        </button>
+            <thead>
 
-        <h3>Riwayat Bermain</h3>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Game</th>
+                    <th>Genre</th>
+                    <th>Rating</th>
+                    <th>Tanggal</th>
+                    <th>Aksi</th>
+                </tr>
 
-        <ul id="riwayat"></ul>
+            </thead>
+
+            <tbody id="gameTable">
+
+            </tbody>
+
+        </table>
+
     </div>
 
-    <div class="card">
+</section>
+
+<!-- WISHLIST -->
+<section class="card">
+
+    <div class="section-title">
         <h2>Wishlist</h2>
+    </div>
 
-        <input type="text" id="wishlistInput" placeholder="Nama Game">
+    <div class="wishlist-input">
+
+        <input
+        type="text"
+        id="wishlistInput"
+        placeholder="Nama game wishlist">
 
         <button onclick="tambahWishlist()">
             Tambah Wishlist
         </button>
 
-        <ul id="wishlist"></ul>
     </div>
+
+    <ul id="wishlistList"></ul>
+
+</section>
+
+<!-- MAINKAN GAME -->
+<section class="card">
+
+    <div class="section-title">
+        <h2>Mainkan Game</h2>
+    </div>
+
+    <select id="playSelect">
+
+    </select>
+
+    <button onclick="mainkanGame()">
+        ▶ Mainkan
+    </button>
+
+</section>
+
+<!-- RIWAYAT -->
+<section class="card">
+
+    <div class="section-title">
+        <h2>Riwayat Bermain</h2>
+    </div>
+
+    <ul id="riwayatList">
+
+    </ul>
+
+</section>
+
+<!-- MODAL EDIT -->
+<div id="editModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Edit Game</h2>
+
+        <input
+        type="text"
+        id="editNama">
+
+        <select id="editGenre"></select>
+
+        <select id="editRating"></select>
+
+        <div class="modal-buttons">
+
+            <button onclick="simpanEdit()">
+                Simpan
+            </button>
+
+            <button onclick="tutupModal()">
+                Batal
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    <p>Game Collection Manager © 2026</p>
+</footer>
 
 </div>
 
@@ -77,3 +422,48 @@
 
 </body>
 </html>
+
+</body>
+</html>
+```
+<section class="card">
+
+<h2>
+Linked List Visualization
+</h2>
+
+<div id="linkedListView">
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>
+Doubly Linked List
+</h2>
+
+<div id="doubleListView">
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>
+Statistik Genre
+</h2>
+
+<canvas
+id="genreChart">
+</canvas>
+
+</section>
+
+<button onclick="nextWishlist()">
+
+Wishlist Berikutnya
+
+</button>
