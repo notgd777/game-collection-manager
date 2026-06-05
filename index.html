@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Collection Manager</title>
+
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🎮 Game Collection Manager</h1>
+
+    <div class="card">
+        <h2>Tambah Game</h2>
+
+        <input type="text" id="nama" placeholder="Nama Game">
+        <input type="text" id="genre" placeholder="Genre">
+        <input type="number" id="rating" placeholder="Rating">
+
+        <button onclick="tambahGame()">Tambah Game</button>
+    </div>
+
+    <div class="card">
+        <h2>Cari Game</h2>
+
+        <input type="text" id="cariInput" placeholder="Masukkan nama game">
+
+        <button onclick="cariGame()">Cari</button>
+
+        <div id="hasilCari"></div>
+    </div>
+
+    <div class="card">
+        <h2>Daftar Game</h2>
+
+        <button onclick="urutkanGame()">
+            Urutkan Rating Tertinggi
+        </button>
+
+        <div id="daftarGame"></div>
+    </div>
+
+    <div class="card">
+        <h2>Mainkan Game</h2>
+
+        <input type="text" id="gameMain" placeholder="Nama Game">
+
+        <button onclick="mainkanGame()">
+            Mainkan
+        </button>
+
+        <h3>Riwayat Bermain</h3>
+
+        <ul id="riwayat"></ul>
+    </div>
+
+    <div class="card">
+        <h2>Wishlist</h2>
+
+        <input type="text" id="wishlistInput" placeholder="Nama Game">
+
+        <button onclick="tambahWishlist()">
+            Tambah Wishlist
+        </button>
+
+        <ul id="wishlist"></ul>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
