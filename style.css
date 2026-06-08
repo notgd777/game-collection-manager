@@ -323,7 +323,6 @@ tr:nth-child(even){
     opacity:1;
 }
 
-/* MODAL */
 
 .modal{
     position:fixed;
@@ -349,7 +348,6 @@ tr:nth-child(even){
     margin-top:20px;
 }
 
-/* RESPONSIVE */
 
 @media(max-width:768px){
 
