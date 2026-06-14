@@ -195,25 +195,31 @@ btn.innerHTML =
         "ratingGame"
     ).value;
 
-    if (!nama || !genre || !rating) {
+   if (!nama || !genre || !rating) {
 
-        showToast(
-            "⚠ Lengkapi semua data!"
-        );
+    showToast(
+        "⚠ Lengkapi semua data!"
+    );
 
-        return;
+    btn.disabled = false;
+    btn.innerHTML = "Tambah Game";
+
+    return;
     }
 
     if (
-        collections[currentCollection]
-        .games.length >= 10
+    collections[currentCollection]
+    .games.length >= 10
     ) {
 
-        showToast(
-            "⚠ Koleksi sudah penuh!"
-        );
+    showToast(
+        "⚠ Koleksi sudah penuh!"
+    );
 
-        return;
+    btn.disabled = false;
+    btn.innerHTML = "Tambah Game";
+
+    return;
     }
 
     const game = {
@@ -256,8 +262,13 @@ btn.innerHTML =
         ).value = "";
 
         showToast(
-            "✔ Game berhasil ditambahkan ke koleksi!"
-        );
+    "✔ Game berhasil ditambahkan ke koleksi!"
+);
+
+btn.disabled = false;
+
+btn.innerHTML =
+"Tambah Game";
 
     }, 1000);
 }
@@ -809,3 +820,119 @@ arr,target
 
     return null;
 }
+
+function tambahWishlist(){
+
+    const input =
+    document.getElementById(
+        "wishlistInput"
+    );
+
+    const nama =
+    input.value.trim();
+
+    if(!nama){
+
+        showToast(
+            "⚠ Masukkan nama game!"
+        );
+
+        return;
+    }
+
+    wishlist.push(nama);
+
+    saveData();
+
+    renderWishlist();
+
+    input.value = "";
+
+    showToast(
+        "✅ Wishlist berhasil ditambahkan!"
+    );
+
+}
+
+function renderWishlist(){
+
+    const list =
+    document.getElementById(
+        "wishlistList"
+    );
+
+    if(!list) return;
+
+    list.innerHTML = "";
+
+    if(wishlist.length === 0){
+
+        list.innerHTML =
+        "<li>Wishlist kosong</li>";
+
+        return;
+    }
+
+    wishlist.forEach(
+    (game,index)=>{
+
+        list.innerHTML += `
+        <li>
+            ${index + 1}. ${game}
+        </li>
+        `;
+    });
+
+}
+
+function resetWishlist() {
+
+    if (!confirm("Yakin ingin menghapus seluruh wishlist?")) {
+        return;
+    }
+
+    wishlist = [];
+
+    saveData();
+
+    renderWishlist();
+
+    updateDashboard();
+
+    showToast(
+        "🗑 Wishlist berhasil dikosongkan!"
+    );
+
+}
+
+function mainkanWishlistPertama() {
+
+    if (wishlist.length === 0) {
+
+        showToast(
+            "⚠ Wishlist kosong!"
+        );
+
+        return;
+    }
+
+    const game =
+    wishlist.shift();
+
+    saveData();
+
+    renderWishlist();
+
+    showToast(
+        `🎮 ${game} dikeluarkan dari antrian`
+    );
+
+}
+
+function closeWelcome(){
+
+    document
+    .getElementById("welcomeModal")
+    .style.display = "none";
+
+}S

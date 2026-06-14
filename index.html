@@ -239,20 +239,6 @@ onclick="tambahGame()">
         id="searchGame"
         placeholder="Cari nama game...">
 
-        <select id="searchMethod">
-
-    <option value="sequential">
-        Sequential Search
-    </option>
-
-    <option value="binary">
-        Binary Search
-    </option>
-
-    <option value="interpolation">
-        Interpolation Search
-    </option>
-
 </select>
 
         <select id="filterGenre">
@@ -330,20 +316,28 @@ onclick="tambahGame()">
 
     <div class="wishlist-input">
 
-        <input
-        type="text"
-        id="wishlistInput"
-        placeholder="Nama game wishlist">
+    <input
+    type="text"
+    id="wishlistInput"
+    placeholder="Nama game wishlist">
 
-        <button onclick="tambahWishlist()">
-            Tambah Wishlist
-        </button>
+    <button onclick="tambahWishlist()">
+        Tambah Wishlist
+    </button>
 
-    </div>
+    <button onclick="resetWishlist()">
+        🗑 Reset Wishlist
+    </button>
+
+</div>
 
     <ul id="wishlistList"></ul>
 
 </section>
+
+<button onclick="mainkanWishlistPertama()">
+    ▶ Mainkan Selanjutnya
+</button>
 
 <!-- MAINKAN GAME -->
 <section class="card">
@@ -411,6 +405,50 @@ onclick="tambahGame()">
 
 </div>
 
+<div id="welcomeModal" class="welcome-modal">
+
+    <div class="welcome-content">
+
+        <h1>🎮 Selamat Datang Pengguna!</h1>
+
+        <p>
+            Game Collection Manager adalah aplikasi
+            untuk mengelola koleksi game pribadi,
+            mencatat riwayat bermain, dan mengatur
+            antrian game yang ingin dimainkan.
+        </p>
+
+        <div class="guide-box">
+
+            <h3>Fitur Utama</h3>
+
+            <ul>
+                <li>📚 Koleksi Game (ArrayList)</li>
+                <li>🎯 Antrian Bermain (Queue)</li>
+                <li>🕒 Riwayat Bermain (Stack)</li>
+                <li>🔎 Pencarian Game</li>
+            </ul>
+
+            <h3>Cara Menggunakan</h3>
+
+            <ol>
+                <li>Pilih salah satu koleksi game</li>
+                <li>Tambahkan game baru</li>
+                <li>Kelola data game</li>
+                <li>Mainkan game dari daftar</li>
+                <li>Lihat riwayat bermain</li>
+            </ol>
+
+        </div>
+
+        <button onclick="closeWelcome()">
+            Mulai Menggunakan
+        </button>
+
+    </div>
+
+</div>
+
 <script src="script.js"></script>
 
 </body>
@@ -425,19 +463,3 @@ onclick="tambahGame()">
 </section>
 
 <section class="card">
-
-<h2>
-Statistik Genre
-</h2>
-
-<canvas
-id="genreChart">
-</canvas>
-
-</section>
-
-<button onclick="nextWishlist()">
-
-Wishlist Berikutnya
-
-</button>
